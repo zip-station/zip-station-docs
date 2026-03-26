@@ -65,6 +65,11 @@ const config: Config = {
           label: 'Contributing',
         },
         {
+          href: 'https://demo.zipstation.dev',
+          label: 'Live Demo',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/zip-station/zip-station-docs',
           label: 'GitHub',
           position: 'right',

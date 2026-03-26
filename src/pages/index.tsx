@@ -18,15 +18,23 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--primary button--lg"
-            to="/docs/user-guide/getting-started">
-            Get Started
+            href="https://demo.zipstation.dev">
+            Try the Demo
           </Link>
           <Link
             className="button button--secondary button--lg"
+            to="/docs/setup-guide/quick-start">
+            Get Started
+          </Link>
+          <Link
+            className="button button--outline button--lg"
             to="/docs/intro">
             Learn More
           </Link>
         </div>
+        <p style={{marginTop: '1rem', fontSize: '0.9rem', opacity: 0.7}}>
+          Demo login: <code>demo@zipstation.dev</code> / <code>TestAccount</code>
+        </p>
       </div>
     </header>
   );

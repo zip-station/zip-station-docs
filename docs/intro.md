@@ -11,6 +11,10 @@ Zip Station is designed for a single company to manage multiple helpdesks across
 
 Built with **React**, **.NET**, and **MongoDB**, Zip Station gives you full control over your support workflow without relying on third-party SaaS platforms.
 
+:::tip Try it out
+Check out the [live demo](https://demo.zipstation.dev) to see Zip Station in action. Login with `demo@zipstation.dev` / `TestAccount` (read-only access).
+:::
+
 ## What can it do?
 
 - Receive and manage customer emails as tickets
