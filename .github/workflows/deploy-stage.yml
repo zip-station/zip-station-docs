@@ -1,0 +1,59 @@
+name: Deploy to Stage
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build & Push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Docker Tag
+        run: echo "DOCKER_TAG=$(echo ${GITHUB_SHA} | head -c7)" >> $GITHUB_ENV
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/zip-station-docs:${{ env.DOCKER_TAG }}
+            ghcr.io/${{ github.repository_owner }}/zip-station-docs:latest
+          cache-from: type=gha,scope=docs
+          cache-to: type=gha,scope=docs
+
+  deploy:
+    name: Deploy to Stage
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Docker Tag
+        run: echo "DOCKER_TAG=$(echo ${GITHUB_SHA} | head -c7)" >> $GITHUB_ENV
+
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Update K8s manifest
+        run: sed -i 's|<IMAGE>|ghcr.io/${{ github.repository_owner }}/zip-station-docs:${{ env.DOCKER_TAG }}|' k8s/docs-stage.yaml
+
+      - name: Save kubeconfig
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 s1-k8
+
+      - name: Deploy
+        run: kubectl apply -f k8s/docs-stage.yaml

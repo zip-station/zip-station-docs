@@ -1,0 +1,29 @@
+name: Deploy to Prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Image tag to deploy (defaults to latest)'
+        required: false
+        default: 'latest'
+
+jobs:
+  deploy:
+    name: Deploy to Prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Update K8s manifest
+        run: sed -i 's|<IMAGE>|ghcr.io/${{ github.repository_owner }}/zip-station-docs:${{ inputs.image_tag }}|' k8s/docs-prod.yaml
+
+      - name: Save kubeconfig
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 s1-k8
+
+      - name: Deploy
+        run: kubectl apply -f k8s/docs-prod.yaml

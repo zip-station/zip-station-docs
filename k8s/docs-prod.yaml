@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zip-station-docs-prod
+  namespace: zip-station
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: zip-station-docs-prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zip-station-docs-prod
+  namespace: zip-station
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zip-station-docs-prod
+  template:
+    metadata:
+      labels:
+        app: zip-station-docs-prod
+    spec:
+      containers:
+      - name: zip-station-docs-prod
+        image: "<IMAGE>"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 10
+          periodSeconds: 10
+      imagePullSecrets:
+      - name: ghcr-secret
