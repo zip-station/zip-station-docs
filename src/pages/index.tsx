@@ -4,24 +4,25 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
+import styles from './index.module.css';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className="tw-bg-gradient-to-br tw-from-blue-600 tw-to-indigo-800 tw-text-white tw-py-24 tw-text-center">
-      <div className="tw-container tw-mx-auto tw-px-4">
-        <Heading as="h1" className="tw-text-5xl tw-font-bold tw-mb-4">
+    <header className={styles.heroBanner}>
+      <div className="container">
+        <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
-        <p className="tw-text-xl tw-mb-8 tw-opacity-90">{siteConfig.tagline}</p>
-        <div className="tw-flex tw-gap-4 tw-justify-center">
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.buttons}>
           <Link
-            className="tw-bg-white tw-text-blue-700 tw-font-semibold tw-px-6 tw-py-3 tw-rounded-lg tw-no-underline hover:tw-bg-gray-100 tw-transition-colors"
+            className="button button--primary button--lg"
             to="/docs/user-guide/getting-started">
             Get Started
           </Link>
           <Link
-            className="tw-border-2 tw-border-white tw-text-white tw-font-semibold tw-px-6 tw-py-3 tw-rounded-lg tw-no-underline hover:tw-bg-white/10 tw-transition-colors"
+            className="button button--secondary button--lg"
             to="/docs/intro">
             Learn More
           </Link>

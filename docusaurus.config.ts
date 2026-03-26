@@ -48,7 +48,6 @@ const config: Config = {
         blog: false,
         theme: {
           customCss: [
-            './src/css/tailwind.css',
             './src/css/custom.css',
           ],
         },
@@ -80,7 +79,7 @@ const config: Config = {
           label: 'Contributing',
         },
         {
-          href: 'https://github.com/signal-one-digital/zip-station',
+          href: 'https://github.com/zip-station/zip-station-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -111,7 +110,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/signal-one-digital/zip-station',
+              href: 'https://github.com/zip-station/zip-station-docs',
             },
           ],
         },

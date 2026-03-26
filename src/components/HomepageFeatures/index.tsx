@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react';
 import Heading from '@theme/Heading';
+import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
@@ -14,7 +15,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Get up and running with a single <code>docker compose up</code> command.
-        Pull pre-built images from Docker Hub and start managing tickets right away.
+        Pull pre-built images and start managing tickets right away.
       </>
     ),
   },
@@ -24,7 +25,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Your data stays on your infrastructure. No third-party cloud dependencies,
-        no vendor lock-in. Full control over your helpdesk environment.
+        no vendor lock-in. Full control over your helpdesk.
       </>
     ),
   },
@@ -33,8 +34,8 @@ const FeatureList: FeatureItem[] = [
     icon: '⚡',
     description: (
       <>
-        Built with React, .NET, and MongoDB. A modern, responsive SPA with a
-        powerful API backend and background job processing.
+        Built with React, .NET, and MongoDB. A modern, responsive dashboard with a
+        powerful API and background email processing.
       </>
     ),
   },
@@ -42,19 +43,21 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, icon, description}: FeatureItem) {
   return (
-    <div className="tw-flex-1 tw-min-w-[280px] tw-text-center tw-px-6 tw-py-8">
-      <div className="tw-text-5xl tw-mb-4">{icon}</div>
-      <Heading as="h3" className="tw-text-xl tw-font-semibold tw-mb-2">{title}</Heading>
-      <p className="tw-text-gray-600 dark:tw-text-gray-300">{description}</p>
+    <div className="col col--4">
+      <div className="text--center padding-horiz--md padding-vert--lg">
+        <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>{icon}</div>
+        <Heading as="h3">{title}</Heading>
+        <p>{description}</p>
+      </div>
     </div>
   );
 }
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className="tw-py-16">
-      <div className="tw-container tw-mx-auto tw-px-4">
-        <div className="tw-flex tw-flex-wrap tw-justify-center tw-gap-8">
+    <section className={styles.features}>
+      <div className="container">
+        <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}
