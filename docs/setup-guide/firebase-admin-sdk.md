@@ -36,5 +36,4 @@ FIREBASE_ADMIN_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEv...your-key-here..
 ### Important Notes
 
 - The `private_key` contains `\n` characters representing line breaks. Keep them as-is in your `.env` file — do not replace them with actual newlines.
-- Wrap the private key value in double quotes in your `.env` file.
 - Keep this file secure. Do not commit it to version control.

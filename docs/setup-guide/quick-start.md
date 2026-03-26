@@ -16,10 +16,14 @@ Get Zip Station running locally in under 10 minutes.
 
 ### 1. Clone the Repository
 
+Clone the [zip-station](https://github.com/zip-station/zip-station) repo:
+
 ```bash
-git clone https://github.com/signal-one-digital/zip-station.git
+git clone https://github.com/zip-station/zip-station.git
 cd zip-station
 ```
+
+Alternatively, you can download just the two files you need directly from the [GitHub repo](https://github.com/zip-station/zip-station) — grab `docker-compose.yml` and `.env.example` and place them in a `zip-station` folder.
 
 ### 2. Configure Environment
 

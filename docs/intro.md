@@ -7,6 +7,8 @@ title: "Welcome"
 
 Zip Station is an open-source, self-hostable helpdesk system. It receives customer emails via IMAP, organizes them into tickets, and lets your team reply via SMTP — all from a clean, modern dashboard.
 
+Zip Station is designed for a single company to manage multiple helpdesks across projects. Each project gets its own email inbox, customer base, and ticket queue. If you have 5 public-facing, individually-operating products and want a dedicated helpdesk for each, this is the app for you.
+
 Built with **React**, **.NET**, and **MongoDB**, Zip Station gives you full control over your support workflow without relying on third-party SaaS platforms.
 
 ## What can it do?

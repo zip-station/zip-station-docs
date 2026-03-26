@@ -28,7 +28,16 @@ git clone https://github.com/signal-one-digital/zip-station-spa.git
 git clone https://github.com/signal-one-digital/zip-station-docs.git
 ```
 
-## Option 1: Run Each Service Individually
+## Option 1: Docker Compose (Recommended)
+
+Run everything in Docker:
+
+```bash
+cd zip-station
+docker compose -f docker-compose.dev.yml up --build
+```
+
+## Option 2: Run Services Individually
 
 ### Start MongoDB
 
@@ -57,15 +66,6 @@ dotnet run
 cd zip-station-spa
 pnpm install
 pnpm dev
-```
-
-## Option 2: Docker Compose
-
-Run everything in Docker:
-
-```bash
-cd zip-station
-docker compose -f docker-compose.dev.yml up --build
 ```
 
 ## Verify
