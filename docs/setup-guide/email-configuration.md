@@ -35,6 +35,12 @@ Each project has its own IMAP settings. The Worker service polls the inbox every
 | Username | support@yourdomain.com |
 | Password | your-app-password |
 
+## File Attachments
+
+To send and receive file attachments, configure a Backblaze B2 storage bucket in **Project Settings** > **File Storage**. See [Projects — File Storage](/docs/user-guide/projects#file-storage) for details.
+
+Without file storage configured, emails still work normally — attachments on incoming emails are simply not saved, and outgoing emails cannot include attachments.
+
 ## Recommendations
 
 - Use a **dedicated email address** like `support@yourdomain.com` for each project
