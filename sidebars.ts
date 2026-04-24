@@ -11,6 +11,7 @@ const sidebars: SidebarsConfig = {
         'user-guide/getting-started',
         'user-guide/dashboard',
         'user-guide/tickets',
+        'user-guide/kanban',
         'user-guide/intake',
         'user-guide/customers',
         'user-guide/canned-responses',
