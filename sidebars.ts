@@ -19,6 +19,7 @@ const sidebars: SidebarsConfig = {
         'user-guide/alerts',
         'user-guide/settings',
         'user-guide/roles-and-permissions',
+        'user-guide/personal-access-tokens',
         'user-guide/keyboard-shortcuts',
       ],
     },
