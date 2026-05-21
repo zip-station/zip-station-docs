@@ -13,6 +13,7 @@ const sidebars: SidebarsConfig = {
         'user-guide/tickets',
         'user-guide/kanban',
         'user-guide/intake',
+        'user-guide/discord',
         'user-guide/customers',
         'user-guide/canned-responses',
         'user-guide/projects',
