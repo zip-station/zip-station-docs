@@ -79,7 +79,10 @@ The same URL + bearer-token pattern works for any MCP client that supports the H
 ## Troubleshooting
 
 **Claude Code can't connect / `connection refused`**
-The MCP container isn't running. Verify with `docker compose ps` — you should see `zipstation-mcp` on port 5101. If you're on a remote host, make sure port 5101 is reachable (or that your reverse proxy routes `/mcp` to it).
+The MCP container isn't running. Verify with `docker compose ps` — you should see `zipstation-mcp` on port 5101. If you're on a remote host, make sure port 5101 is reachable (or that your reverse proxy routes `/mcp` to it). See the [DNS and Reverse Proxy guide](../setup-guide/dns-and-reverse-proxy.md#exposing-the-mcp-server) for the nginx/Caddy config.
+
+**Responses come all at once instead of streaming**
+Your reverse proxy is buffering. The DNS/proxy guide shows the right flags (`proxy_buffering off` for nginx, `flush_interval -1` for Caddy) to fix this.
 
 **`401 Unauthorized` from a tool**
 The token is wrong, revoked, expired, or your account has been disabled. Mint a new one and re-run `claude mcp add` (Claude Code will overwrite the existing entry if you reuse the name).

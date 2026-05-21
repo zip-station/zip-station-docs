@@ -83,6 +83,68 @@ server {
 </VirtualHost>
 ```
 
+## Exposing the MCP Server
+
+Zip Station ships an MCP server (`zipstation-mcp` container on port `5101`) so users can connect Claude Code or other MCP-aware AI tools to their instance. You need to expose it through your reverse proxy.
+
+Two patterns work — pick the one that matches your setup:
+
+### Path-based (recommended — matches the in-product copy command)
+
+Add a `/mcp` location to your existing dashboard subdomain. The token-create dialog in **Settings → Personal Access Tokens** auto-generates `https://{your-dashboard-url}/mcp` as the connection URL, so the URL works out-of-the-box.
+
+**Caddy** — add a handler block above the catch-all:
+
+```
+yourdomain.com {
+    handle /mcp* {
+        reverse_proxy localhost:5101 {
+            flush_interval -1
+        }
+    }
+    handle {
+        reverse_proxy localhost:3000
+    }
+}
+```
+
+**Nginx** — add a location block inside your existing dashboard server block:
+
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    location /mcp {
+        proxy_pass http://localhost:5101;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Connection '';
+        proxy_buffering off;          # MCP streaming requires flushing
+        proxy_read_timeout 1h;
+    }
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+:::warning Streaming requires no buffering
+The `proxy_buffering off;` (nginx) and `flush_interval -1` (Caddy) settings are critical. MCP and Max chat both use server-sent events; with default buffering, responses appear all at once at the end instead of streaming.
+:::
+
+### Subdomain (alternative)
+
+If you prefer a separate subdomain per service, add `mcp.yourdomain.com` alongside `yourdomain.com` and `api.yourdomain.com` and point it at port 5101. **You'll need to manually edit the copy command** in the token-create dialog every time, since it assumes path-based routing. Skip this unless you have a strong reason.
+
+### Cloudflare
+
+If you front your stack with Cloudflare, no extra config is needed for either pattern — Cloudflare's proxy passes through SSE correctly. If you use Cloudflare Tunnel instead of public IPs, add a public hostname with `Path: mcp` pointing at `http://mcp:5101` (the container name on the docker compose network).
+
 ## Update Your .env
 
 After setting up DNS, update your environment variables:
